@@ -37,8 +37,12 @@ public class PersonController {
     private final AtomicLong counter = new AtomicLong();
     
     @RequestMapping(value="/get/{id}",method=GET, produces={APPLICATION_JSON_VALUE})
-    public Person getPersonById(@PathVariable("id") int id){
-    	return service.getById(id);
+    public ResponseEntity<Person> getPersonById(@PathVariable("id") int id){
+    	if(service.exist(id)){
+    		return new ResponseEntity<Person>(service.getById(id),OK);
+    	}else{
+    		return new ResponseEntity<Person>(NOT_ACCEPTABLE);
+    	}
     }
     
     @RequestMapping(value="/create",method=POST, produces= "application/json")
@@ -65,7 +69,7 @@ public class PersonController {
     @ResponseBody
     public ResponseEntity<Person> updatePerson(@RequestBody Person person){
     	if(service.exist(person.getId())){
-    		service.update(person);
+    		this.service.update(person);
     		return new ResponseEntity<Person>(person,OK);
     	}else{
     		return new ResponseEntity<Person>(NOT_ACCEPTABLE);

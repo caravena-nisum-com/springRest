@@ -1,15 +1,19 @@
 package com.demo.domain;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Getter
+@Setter
 @AllArgsConstructor
-public @Data class Person {
+@NoArgsConstructor
+public class Person {
 	
-	private @Setter int id;
-	private @Setter String name;
-	private @Setter int age;
-	private @Setter String description;
+	private  int id;
+	private  String name;
+	private  int age;
+	private  String description;
 	
 }
