@@ -1,0 +1,42 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.6.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+jar {
+    baseName = 'gs-rest-service'
+    version =  '0.1.0'
+}
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+dependencies {
+	compile("org.projectlombok:lombok:1.16.6")
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework:spring-test:4.2.1.RELEASE")
+    compile("org.springframework:spring-context:4.2.1.RELEASE")
+    
+    compile ('com.jayway.restassured:spring-mock-mvc:2.5.0')
+    testCompile("junit:junit")
+    testCompile('org.mockito:mockito-all:1.9.5')
+}
+
+defaultTasks 'bootRun' 
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
