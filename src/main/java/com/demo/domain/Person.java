@@ -10,8 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Person {
-	private  int id;
-	private  String name;
-	private  int age;
-	private  String description;
+    private int id;
+    private String name;
+    private int age;
+    private String description;
 }

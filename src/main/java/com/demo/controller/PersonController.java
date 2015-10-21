@@ -1,6 +1,5 @@
 package com.demo.controller;
 
-
 import static org.springframework.http.HttpStatus.NOT_ACCEPTABLE;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -31,48 +30,48 @@ import lombok.Setter;
 @RestController
 public class PersonController {
 
-	@Autowired
-	@Setter public ServiceInterface<Person> service;
+    @Autowired
+    @Setter
+    public ServiceInterface<Person> service;
 
     private final AtomicLong counter = new AtomicLong();
 
-    @RequestMapping(value="/get/{id}",method=GET, produces={APPLICATION_JSON_VALUE})
-    public ResponseEntity<Person> getPersonById(@PathVariable("id") int id){
-    	if(service.exist(id)){
-    		return new ResponseEntity<Person>(service.getById(id),OK);
-    	}else{
-    		return new ResponseEntity<Person>(NOT_ACCEPTABLE);
-    	}
+    @RequestMapping(value = "/get/{id}", method = GET, produces = { APPLICATION_JSON_VALUE })
+    public ResponseEntity<Person> getPersonById(@PathVariable("id") int id) {
+        if (service.exist(id)) {
+            return new ResponseEntity<Person>(service.getById(id), OK);
+        } else {
+            return new ResponseEntity<Person>(NOT_ACCEPTABLE);
+        }
     }
 
-    @RequestMapping(value="/create",method=POST, produces= "application/json")
-    public Person createNewPerson(@RequestParam(value="name") String name, 
-    						   @RequestParam(value="age") int age, 
-    						   @RequestParam(value="description") String description) {
-    	Person person = new Person((int) counter.incrementAndGet(), name, (int)age, description);
-    	service.add(person);
-    	return person;
+    @RequestMapping(value = "/create", method = POST, produces = "application/json")
+    public Person createNewPerson(@RequestParam(value = "name") String name, @RequestParam(value = "age") int age,
+            @RequestParam(value = "description") String description) {
+        Person person = new Person((int) counter.incrementAndGet(), name, (int) age, description);
+        service.add(person);
+        return person;
     }
 
-    @RequestMapping(value="/list",method=GET, produces="application/json")
-    public List<Person> getListOfPersons(){
-    	return service.getAll();
+    @RequestMapping(value = "/list", method = GET, produces = "application/json")
+    public List<Person> getListOfPersons() {
+        return service.getAll();
     }
 
-    @RequestMapping(value="/delete/{id}",method=DELETE,produces={APPLICATION_JSON_VALUE})
-    public Person deletePersonById(@PathVariable("id") int id){
-    	return service.deleteById(id);
+    @RequestMapping(value = "/delete/{id}", method = DELETE, produces = { APPLICATION_JSON_VALUE })
+    public Person deletePersonById(@PathVariable("id") int id) {
+        return service.deleteById(id);
     }
 
     @ExceptionHandler
-    @RequestMapping(value="/update",method=PUT,produces="application/json",consumes="application/json")
+    @RequestMapping(value = "/update", method = PUT, produces = "application/json", consumes = "application/json")
     @ResponseBody
-    public ResponseEntity<Person> updatePerson(@RequestBody Person person){
-    	if(service.exist(person.getId())){
-    		this.service.update(person);
-    		return new ResponseEntity<Person>(person,OK);
-    	}else{
-    		return new ResponseEntity<Person>(NOT_ACCEPTABLE);
-    	}
+    public ResponseEntity<Person> updatePerson(@RequestBody Person person) {
+        if (service.exist(person.getId())) {
+            this.service.update(person);
+            return new ResponseEntity<Person>(person, OK);
+        } else {
+            return new ResponseEntity<Person>(NOT_ACCEPTABLE);
+        }
     }
 }

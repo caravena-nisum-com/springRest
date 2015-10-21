@@ -1,17 +1,16 @@
 package com.demo;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 @SpringBootApplication
 public class Application {
 
-	private Application() {
-		// TODO Auto-generated constructor stub
-	}	
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		SpringApplication.run(Application.class, args);
-	}
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        SpringApplication.run(Application.class, args);
+    }
 }
