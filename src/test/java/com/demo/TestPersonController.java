@@ -22,46 +22,46 @@ import com.demo.controller.PersonController;
 
 
 public class TestPersonController {
-	
+
 	List<Person> persons = new ArrayList<Person>();
-	
+
 	@Mock
 	ServiceInterface<Person> service;
-	
+
 	@InjectMocks
 	PersonController personController;
-	
+
 	@Before
 	public void setupPersonController(){
-		
+
 		for(int i = 0; i < 3; i++){
 			persons.add(new Person(i, "John"+" "+i, 20, "description"+" "+i));
 		}
-		
+
 		MockitoAnnotations.initMocks(this);
-		
+
 		Mockito.when(service.exist(0)).thenReturn(true);
 		Mockito.when(service.exist(1)).thenReturn(true);
 		Mockito.when(service.exist(2)).thenReturn(true);
-		
+
 		Mockito.when(service.getById(0)).thenReturn(persons.get(0));
 		Mockito.when(service.getById(1)).thenReturn(persons.get(1));
 		Mockito.when(service.getById(2)).thenReturn(persons.get(2));
-		
+
 		Mockito.when(service.getAll()).thenReturn(persons);
-		
+
 		Mockito.when(service.deleteById(0)).thenReturn(persons.get(0));
 		Mockito.when(service.deleteById(1)).thenReturn(persons.get(1));
 		Mockito.when(service.deleteById(2)).thenReturn(persons.get(2));
-		
+
 		RestAssuredMockMvc.standaloneSetup(personController);
 	}
-	
+
 	@After
 	public void resetRestAssuredMockMvc(){
 		RestAssuredMockMvc.reset();
 	}
-	
+
 	/**
 	 * 	AC4: Create a new person
 	 *	Given: the user request ".../rest/person/create"
@@ -81,7 +81,7 @@ public class TestPersonController {
 			statusCode(200).
 			body("id",equalTo(1));
 	}
-	
+
 	/**
 	 * 	AC1: Get person by id:
 	 *	Given: the user request ".../rest/person{id}".
@@ -98,8 +98,8 @@ public class TestPersonController {
 			body("age",equalTo(20)).
 			body("description",equalTo("description 0"));
 	}
-	
-	
+
+
 	/**
 	 *	AC2: Get a list of persons:
 	 *	Given: the user request ".../rest/persons/list".
@@ -122,7 +122,7 @@ public class TestPersonController {
 			body("age[2]",equalTo(20)).
 			body("description[2]",equalTo("description 2"));
 	}
-	
+
 	/**
 	 *	AC3: Delete person by ID
 	 *	Given: the user request ".../rest/person/delete/{id}".
@@ -142,7 +142,7 @@ public class TestPersonController {
 			body("age",equalTo(20)).
 			body("description",equalTo("description 1"));
 	}
-	
+
 	/**
 	 *	AC5: Update a person
 	 *	Given: the user request ".../rest/person/update"

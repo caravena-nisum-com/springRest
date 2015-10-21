@@ -30,12 +30,12 @@ import lombok.Setter;
 @RequestMapping("/rest/person")
 @RestController
 public class PersonController {
-	
+
 	@Autowired
 	@Setter public ServiceInterface<Person> service;
 
     private final AtomicLong counter = new AtomicLong();
-    
+
     @RequestMapping(value="/get/{id}",method=GET, produces={APPLICATION_JSON_VALUE})
     public ResponseEntity<Person> getPersonById(@PathVariable("id") int id){
     	if(service.exist(id)){
@@ -44,7 +44,7 @@ public class PersonController {
     		return new ResponseEntity<Person>(NOT_ACCEPTABLE);
     	}
     }
-    
+
     @RequestMapping(value="/create",method=POST, produces= "application/json")
     public Person createNewPerson(@RequestParam(value="name") String name, 
     						   @RequestParam(value="age") int age, 
@@ -53,17 +53,17 @@ public class PersonController {
     	service.add(person);
     	return person;
     }
-    
+
     @RequestMapping(value="/list",method=GET, produces="application/json")
     public List<Person> getListOfPersons(){
     	return service.getAll();
     }
-    
+
     @RequestMapping(value="/delete/{id}",method=DELETE,produces={APPLICATION_JSON_VALUE})
     public Person deletePersonById(@PathVariable("id") int id){
     	return service.deleteById(id);
     }
-    
+
     @ExceptionHandler
     @RequestMapping(value="/update",method=PUT,produces="application/json",consumes="application/json")
     @ResponseBody

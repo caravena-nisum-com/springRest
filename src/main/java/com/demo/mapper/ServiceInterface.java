@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public interface ServiceInterface<T> {
-	
 	public void add(T entity);
 	public void update(T entity);
 	public T getById(int id);

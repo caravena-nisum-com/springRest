@@ -13,22 +13,20 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ServicePerson implements ServiceInterface<Person> {
-	
+
 	private Map<Integer, Person> persons;
-	
 	public ServicePerson() {
 		persons = new HashMap<Integer,Person>();
 	}
-	
 	@Override
-	public void add(Person entity) {
+    public void add(Person entity) {
 		entity.setId(entity.getId());
 		persons.put((int) entity.getId(), entity);
 	}
-	
+
 	@Override
 	public void update(Person entity) {
-		persons.remove(entity.getId());
+        persons.remove(entity.getId());
 		persons.put(entity.getId(), entity);
 	}
 
