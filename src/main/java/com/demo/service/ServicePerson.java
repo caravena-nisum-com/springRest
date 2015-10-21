@@ -22,11 +22,10 @@ public class ServicePerson implements ServiceInterface<Person> {
 	
 	@Override
 	public void add(Person entity) {
-		System.out.println("Add person");
 		entity.setId(entity.getId());
 		persons.put((int) entity.getId(), entity);
 	}
-
+	
 	@Override
 	public void update(Person entity) {
 		persons.remove(entity.getId());
@@ -35,7 +34,6 @@ public class ServicePerson implements ServiceInterface<Person> {
 
 	@Override
 	public Person getById(int id) {
-		System.out.println("Request get by id = " + id);
 		return persons.get(id);
 	}
 
@@ -59,5 +57,4 @@ public class ServicePerson implements ServiceInterface<Person> {
 	public boolean exist(int id) {
 		return persons.containsKey(id);
 	}
-
 }
