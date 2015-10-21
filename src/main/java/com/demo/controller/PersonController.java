@@ -48,7 +48,7 @@ public class PersonController {
     @RequestMapping(value = "/create", method = POST, produces = "application/json")
     public Person createNewPerson(@RequestParam(value = "name") String name, @RequestParam(value = "age") int age,
             @RequestParam(value = "description") String description) {
-        Person person = new Person((int) counter.incrementAndGet(), name, (int) age, description);
+        Person person = new Person((int) counter.incrementAndGet(), name, age, description);
         service.add(person);
         return person;
     }

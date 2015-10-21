@@ -1,6 +1,7 @@
 package com.demo;
 
-import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.*;
+import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.given;
+import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.when;
 import static org.hamcrest.Matchers.equalTo;
 
 import java.util.ArrayList;
@@ -9,17 +10,19 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
 
+import com.demo.controller.PersonController;
 import com.demo.domain.Person;
 import com.demo.mapper.ServiceInterface;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
-import com.demo.controller.PersonController;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TestPersonController {
 
     List<Person> persons = new ArrayList<Person>();
@@ -36,8 +39,6 @@ public class TestPersonController {
         for (int i = 0; i < 3; i++) {
             persons.add(new Person(i, "John" + " " + i, 20, "description" + " " + i));
         }
-
-        MockitoAnnotations.initMocks(this);
 
         Mockito.when(service.exist(0)).thenReturn(true);
         Mockito.when(service.exist(1)).thenReturn(true);

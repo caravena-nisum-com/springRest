@@ -23,7 +23,7 @@ public class ServicePerson implements ServiceInterface<Person> {
     @Override
     public void add(Person entity) {
         entity.setId(entity.getId());
-        persons.put((int) entity.getId(), entity);
+        persons.put(entity.getId(), entity);
     }
 
     @Override
