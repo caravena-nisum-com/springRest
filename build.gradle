@@ -63,7 +63,7 @@ dependencies {
           "org.codehaus.cargo:cargo-ant:$cargoVersion"
 }
 
-defaultTasks 'test', 'sonarRunner' 
+defaultTasks 'functionalTest','test', 'sonarRunner' 
 
 cargo {
     containerId = 'tomcat7x'
@@ -94,11 +94,13 @@ test{
     exclude 'com/demo/cucumber/**'
 }
 
-task functionalTest(type: Test, dependsOn: [war,testClasses, cargoStartLocal]) {
+task functionalTest(type: Test, dependsOn: [testClasses, cargoStartLocal]) {
     exclude 'com/demo/junit/**'
     
     include 'com/demo/cucumber/**'
 }
+
+cargoStartLocal.dependsOn war
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'
