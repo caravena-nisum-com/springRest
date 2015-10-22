@@ -1,4 +1,4 @@
-package com.demo;
+package com.demo.controller;
 
 import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.given;
 import static com.jayway.restassured.module.mockmvc.RestAssuredMockMvc.when;

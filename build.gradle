@@ -26,14 +26,21 @@ sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 dependencies {
+    // Lombok
 	compile("org.projectlombok:lombok:1.16.6")
+	// Spring
     compile("org.springframework.boot:spring-boot-starter-web")
     compile("org.springframework:spring-test:4.2.1.RELEASE")
     compile("org.springframework:spring-context:4.2.1.RELEASE")
-    
+    // RestAssured
     compile ('com.jayway.restassured:spring-mock-mvc:2.5.0')
+    // Junit
     testCompile("junit:junit")
+    // Mockito
     testCompile('org.mockito:mockito-all:1.9.5')
+    // Cucumber
+    testCompile("info.cukes:cucumber-junit:1.1.8")
+    testCompile("info.cukes:cucumber-java:1.1.8")   
 }
 
 defaultTasks 'test', 'sonarRunner' 
