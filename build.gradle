@@ -1,21 +1,31 @@
 buildscript {
     repositories {
         mavenCentral()
+        jcenter()
+        
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.2.6.RELEASE")
+        classpath 'com.bmuschko:gradle-cargo-plugin:2.2.1'
     }
 }
 
 apply plugin: 'java'
+apply plugin: 'war'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
 apply plugin: 'sonar-runner'
+apply plugin: 'com.bmuschko.cargo'
 
 jar {
-    baseName = 'SpringRes'
+    baseName = 'SpringRest'
     version =  '0.1.0'
+}
+
+war {
+    baseName = 'SpringRest'
+    version = '0.1.0-SNAPSHOT'
 }
 
 repositories {
@@ -40,10 +50,32 @@ dependencies {
     testCompile('org.mockito:mockito-all:1.9.5')
     // Cucumber
     testCompile("info.cukes:cucumber-junit:1.1.8")
-    testCompile("info.cukes:cucumber-java:1.1.8")   
+    testCompile("info.cukes:cucumber-java:1.1.8")
+    // JSON
+    testCompile ('com.jayway.jsonpath:json-path:0.8.1')
+    compile 'com.google.code.gson:gson:2.3.1'
+    compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'   
+    // Log4j
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.1'
+    // Cargo
+    def cargoVersion = '1.4.5'
+    cargo "org.codehaus.cargo:cargo-core-uberjar:$cargoVersion",
+          "org.codehaus.cargo:cargo-ant:$cargoVersion"
 }
 
 defaultTasks 'test', 'sonarRunner' 
+
+cargo {
+    containerId = 'tomcat7x'
+    port = 9090
+    local {
+        installer {
+            installUrl = 'http://www.eu.apache.org/dist/tomcat/tomcat-7/v7.0.65/bin/apache-tomcat-7.0.65.zip'
+            downloadDir = file("$buildDir/download")
+            extractDir = file("$buildDir/extract")
+        }
+    }
+}
 
 sonarRunner {
     sonarProperties {
@@ -56,6 +88,16 @@ sonarRunner {
         property "sonar.jdbc.username", "sonarqubeusr"
         property "sonar.jdbc.password", "s0n4rus3r"
     }
+}
+
+test{
+    exclude 'com/demo/cucumber/**'
+}
+
+task functionalTest(type: Test, dependsOn: [war,testClasses, cargoStartLocal]) {
+    exclude 'com/demo/junit/**'
+    
+    include 'com/demo/cucumber/**'
 }
 
 task wrapper(type: Wrapper) {
