@@ -18,14 +18,9 @@ apply plugin: 'spring-boot'
 apply plugin: 'sonar-runner'
 apply plugin: 'com.bmuschko.cargo'
 
-jar {
-    baseName = 'SpringRest'
-    version =  '0.1.0'
-}
-
 war {
     baseName = 'SpringRest'
-    version = '0.1.0-SNAPSHOT'
+    version = '0.0.1-SNAPSHOT'
 }
 
 repositories {
@@ -51,6 +46,7 @@ dependencies {
     // Cucumber
     testCompile("info.cukes:cucumber-junit:1.1.8")
     testCompile("info.cukes:cucumber-java:1.1.8")
+    testCompile("info.cukes:cucumber-java8:1.2.3");
     // JSON
     testCompile ('com.jayway.jsonpath:json-path:0.8.1')
     compile 'com.google.code.gson:gson:2.3.1'
@@ -63,7 +59,7 @@ dependencies {
           "org.codehaus.cargo:cargo-ant:$cargoVersion"
 }
 
-defaultTasks 'functionalTest','test', 'sonarRunner' 
+defaultTasks 'cucumber','test', 'sonarRunner' 
 
 cargo {
     containerId = 'tomcat7x'
@@ -94,13 +90,19 @@ test{
     exclude 'com/demo/cucumber/**'
 }
 
-task functionalTest(type: Test, dependsOn: [testClasses, cargoStartLocal]) {
+cargoStartLocal.dependsOn war
+
+task cucumber(type: Test, dependsOn: [testClasses, cargoStartLocal]) {
     exclude 'com/demo/junit/**'
     
     include 'com/demo/cucumber/**'
 }
 
-cargoStartLocal.dependsOn war
+tasks.withType(Test) {
+    testLogging {
+        events 'started', 'passed' 
+    }
+}
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.3'

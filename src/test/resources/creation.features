@@ -1,8 +1,0 @@
-Feature: Creation of a Person
-         As a Client
-         I want a service that allow me add a person
-         
-Scenario: Adding a new Person
-          Given I have a valid person mame, age, description
-          When I create the person
-          Then I should see it persisted

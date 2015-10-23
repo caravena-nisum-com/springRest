@@ -6,5 +6,5 @@ import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
 public class RunAllTest {
-    public static final String URL_BASE = new String("http://localhost:8080/rest/person/");
+    public static final String URL_BASE = new String("http://localhost:9090/SpringRest-0.0.1-SNAPSHOT");
 }
