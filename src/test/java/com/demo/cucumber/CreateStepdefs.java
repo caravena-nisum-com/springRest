@@ -29,7 +29,7 @@ public class CreateStepdefs {
     @When("^I create the person$")
     public void I_create_the_person() {
         Gson json = new Gson();
-        String url = RunAllTest.URL_BASE + "/person/create";
+        String url = RunAllTest.URL_BASE + "/create";
         String requestJson = json.toJson(persons[0]);
 
         HttpHeaders headers = new HttpHeaders();
