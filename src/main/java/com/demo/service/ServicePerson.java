@@ -3,13 +3,11 @@ package com.demo.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import com.demo.domain.Person;
-import com.demo.mapper.ServiceInterface;
-
 import java.util.Map;
 
 import org.springframework.stereotype.Service;
+
+import com.demo.domain.Person;
 
 @Service
 public class ServicePerson implements ServiceInterface<Person> {

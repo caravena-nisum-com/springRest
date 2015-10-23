@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.demo.domain.Person;
-import com.demo.mapper.ServiceInterface;
+import com.demo.service.ServiceInterface;
 
 import lombok.Setter;
 

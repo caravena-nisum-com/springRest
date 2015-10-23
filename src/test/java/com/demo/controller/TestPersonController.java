@@ -16,9 +16,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.demo.controller.PersonController;
 import com.demo.domain.Person;
-import com.demo.mapper.ServiceInterface;
+import com.demo.service.ServiceInterface;
 import com.jayway.restassured.http.ContentType;
 import com.jayway.restassured.module.mockmvc.RestAssuredMockMvc;
 
